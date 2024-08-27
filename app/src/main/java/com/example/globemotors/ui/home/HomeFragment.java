@@ -38,10 +38,6 @@ public class HomeFragment extends Fragment {
 
         listView = binding.productList;
         itemList = new ArrayList<>();
-        itemList.add("Product Item 1");
-        itemList.add("Product Item 2");
-        itemList.add("Product Item 3");
-        itemList.add("Product Item 4");
 
         adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, itemList);
         listView.setAdapter(adapter);
