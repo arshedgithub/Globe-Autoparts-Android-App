@@ -1,22 +1,32 @@
 package com.example.globemotors.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.globemotors.ApiService;
 import com.example.globemotors.Product;
 import com.example.globemotors.ProductListAdapter;
+import com.example.globemotors.RetrofitClient;
 import com.example.globemotors.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
@@ -25,6 +35,8 @@ public class HomeFragment extends Fragment {
     private ListView listView;
     private ProductListAdapter adapter;
     private ArrayList<Product> productList;
+
+    private static final String BASE_URL = "https://globe-motors-backend.vercel.app/";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,21 +50,39 @@ public class HomeFragment extends Fragment {
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         listView = binding.productList;
-
-        // Create a list of products
         productList = new ArrayList<>();
-        productList.add(new Product(1, "Product 1", "Category A", 10.0f, 5, "https://example.com/image1.png"));
-        productList.add(new Product(2, "Product 2", "Category B", 20.0f, 3, "https://example.com/image2.png"));
-        productList.add(new Product(3, "Product 3", "Category C", 30.0f, 2, "https://example.com/image3.png"));
-
-        // Initialize custom adapter
         adapter = new ProductListAdapter(requireContext(), productList);
-
-        // Set adapter to ListView
         listView.setAdapter(adapter);
-
+        fetchProducts();
         return root;
     }
+
+    private void fetchProducts() {
+        Retrofit retrofit = RetrofitClient.getClient(BASE_URL);
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<List<Product>> call = apiService.getProducts();
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    productList.clear();
+                    productList.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    String errorMsg = "Error: " + response.code() + " " + response.message();
+                    Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show();
+                    Log.e("HomeFragment", "API call unsuccessful: " + errorMsg);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Toast.makeText(requireContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     @Override
     public void onDestroyView() {

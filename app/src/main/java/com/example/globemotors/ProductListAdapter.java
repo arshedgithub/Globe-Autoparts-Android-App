@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class ProductListAdapter extends ArrayAdapter<Product> {
-    private ArrayList<Product> productArrayList;
 
     public ProductListAdapter(@NonNull Context context, ArrayList<Product> productArrayList) {
         super(context, R.layout.product_list_item, productArrayList);
@@ -33,7 +32,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         TextView productPrice = convertView.findViewById(R.id.list_product_price);
 
         productName.setText(productData.getName());
-        productCategory.setText(productData.getCategory());
+        productCategory.setText(productData.getCategory().getName());
         productPrice.setText(String.valueOf(productData.getPrice()));
 
         return convertView;
