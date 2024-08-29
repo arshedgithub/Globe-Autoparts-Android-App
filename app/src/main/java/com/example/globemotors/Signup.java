@@ -97,7 +97,6 @@ public class Signup extends AppCompatActivity {
                     Intent intent = new Intent(getBaseContext(), HomeFragment.class);
                     startActivity(intent);
                 } else {
-                    Log.d("signup response", "onResponse: "+ response);
                     Toast.makeText(Signup.this, "Sign up failed. Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
