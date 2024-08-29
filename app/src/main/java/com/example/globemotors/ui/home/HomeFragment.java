@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
     private ListView listView;
     private ProductListAdapter adapter;
     private ArrayList<Product> productList;
+    private ProgressBar progressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class HomeFragment extends Fragment {
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         listView = binding.productList;
+        progressBar = binding.progressBar; // Initialize ProgressBar
 
         productList = new ArrayList<>();
         adapter = new ProductListAdapter(requireContext(), productList);
@@ -73,10 +76,14 @@ public class HomeFragment extends Fragment {
         Retrofit retrofit = RetrofitClient.getClient();
         ApiService apiService = retrofit.create(ApiService.class);
 
+        progressBar.setVisibility(View.VISIBLE); // Show ProgressBar
+
         Call<List<Product>> call = apiService.getProducts();
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                progressBar.setVisibility(View.GONE); // Hide ProgressBar
+
                 if (response.isSuccessful() && response.body() != null) {
                     productList.clear();
                     productList.addAll(response.body());
@@ -89,6 +96,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE); // Hide ProgressBar
                 Toast.makeText(requireContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
