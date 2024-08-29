@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.globemotors.models.LoginRequest;
 import com.example.globemotors.models.LoginResponse;
+import com.example.globemotors.ui.home.HomeFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +31,7 @@ public class Signin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+
 
         // Initialize views
         usernameEditText = findViewById(R.id.input_username);
@@ -76,11 +78,10 @@ public class Signin extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String accessToken = response.body().getAccessToken();
-                    // Handle successful login (e.g., save token, navigate to another activity)
                     Toast.makeText(Signin.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getBaseContext(), HomeFragment.class);
+                    startActivity(intent);
                 } else {
-                    // Handle failed login
-                    Log.d("signin response", "onResponse: " + response);
                     Toast.makeText(Signin.this, "Invalid username or password.", Toast.LENGTH_SHORT).show();
                 }
             }

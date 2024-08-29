@@ -46,7 +46,7 @@ public class Product_details extends AppCompatActivity {
         productDescription.setText(product.getDescription());
         productBrand.setText("Brand: " + product.getBrand().getName());
         productSubcategory.setText("Subcategory: " + product.getSubcategory().getName());
-        productOrigin.setText("Origin" + product.getOrigin().getName());
+        productOrigin.setText("Origin: " + product.getOrigin().getName());
         productVehicle.setText("Vehicle: " + product.getVehicle().getName());
         productUseStatus.setText(product.getUseStatus().getName());
 
