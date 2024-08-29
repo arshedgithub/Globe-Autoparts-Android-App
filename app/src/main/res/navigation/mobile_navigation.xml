@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_about"
         android:name="com.example.globemotors.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="About"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
@@ -22,4 +22,9 @@
         android:name="com.example.globemotors.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <activity
+        android:id="@+id/nav_userauth"
+        android:name="com.example.globemotors.Signin"
+        />
 </navigation>
