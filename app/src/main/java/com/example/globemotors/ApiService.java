@@ -19,4 +19,8 @@ public interface ApiService {
     // Define the sign-in method
     @POST("/api/users/auth/signin")
     Call<LoginResponse> signIn(@Body LoginRequest loginRequest);
+
+    @POST("/api/users/auth/signup")
+    Call<Void> signup(@Body User user);
+
 }
