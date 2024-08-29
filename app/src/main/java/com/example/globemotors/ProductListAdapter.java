@@ -32,10 +32,12 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         TextView productName = convertView.findViewById(R.id.list_product_name);
         TextView productCategory = convertView.findViewById(R.id.list_product_category);
         TextView productPrice = convertView.findViewById(R.id.list_product_price);
+        TextView productStatus = convertView.findViewById(R.id.list_product_status);
 
         productName.setText(productData.getName());
         productCategory.setText(productData.getCategory().getName());
-        productPrice.setText(String.valueOf(productData.getPrice()));
+        productPrice.setText(String.format("LKR %.2f", productData.getPrice()));
+        productStatus.setText(productData.getStock() > 0 ? "Available": "Not Available");
 
         return convertView;
     }
