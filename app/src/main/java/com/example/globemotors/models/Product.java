@@ -1,4 +1,4 @@
-package com.example.globemotors;
+package com.example.globemotors.models;
 
 import com.google.gson.annotations.SerializedName;
 

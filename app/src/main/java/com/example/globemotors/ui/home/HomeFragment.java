@@ -2,7 +2,6 @@ package com.example.globemotors.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.globemotors.ApiService;
-import com.example.globemotors.Product;
+import com.example.globemotors.models.Product;
 import com.example.globemotors.ProductListAdapter;
 import com.example.globemotors.Product_details;
 import com.example.globemotors.RetrofitClient;
@@ -36,8 +35,6 @@ public class HomeFragment extends Fragment {
     private ListView listView;
     private ProductListAdapter adapter;
     private ArrayList<Product> productList;
-
-    private static final String BASE_URL = "https://globe-motors-backend.vercel.app/";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +70,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void fetchProducts() {
-        Retrofit retrofit = RetrofitClient.getClient(BASE_URL);
+        Retrofit retrofit = RetrofitClient.getClient();
         ApiService apiService = retrofit.create(ApiService.class);
 
         Call<List<Product>> call = apiService.getProducts();
