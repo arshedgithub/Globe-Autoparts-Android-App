@@ -1,6 +1,8 @@
 package com.example.globemotors;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ public class Signin extends AppCompatActivity {
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button signinButton;
+    private Button signupButton;
 
     private ApiService apiService;
 
@@ -32,6 +35,7 @@ public class Signin extends AppCompatActivity {
         usernameEditText = findViewById(R.id.input_username);
         passwordEditText = findViewById(R.id.input_password);
         signinButton = findViewById(R.id.signin_btn);
+        signupButton = findViewById(R.id.signup_btn);
 
         // Initialize Retrofit and ApiService
         RetrofitClient retrofitClient = new RetrofitClient();
@@ -52,6 +56,14 @@ public class Signin extends AppCompatActivity {
                 }
             }
         });
+
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), Signup.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void login(String username, String password) {
@@ -68,6 +80,7 @@ public class Signin extends AppCompatActivity {
                     Toast.makeText(Signin.this, "Login successful!", Toast.LENGTH_SHORT).show();
                 } else {
                     // Handle failed login
+                    Log.d("signin response", "onResponse: " + response);
                     Toast.makeText(Signin.this, "Invalid username or password.", Toast.LENGTH_SHORT).show();
                 }
             }

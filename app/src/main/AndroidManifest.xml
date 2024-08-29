@@ -18,6 +18,9 @@
             android:name=".Signin"
             android:exported="false" />
         <activity
+            android:name=".Signup"
+            android:exported="false" />
+        <activity
             android:name=".Product_details"
             android:exported="false"
             android:theme="@style/Theme.GlobeMotors.NoActionBar" />

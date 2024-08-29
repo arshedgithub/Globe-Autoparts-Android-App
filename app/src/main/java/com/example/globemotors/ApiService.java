@@ -3,6 +3,7 @@ package com.example.globemotors;
 import com.example.globemotors.models.LoginRequest;
 import com.example.globemotors.models.LoginResponse;
 import com.example.globemotors.models.Product;
+import com.example.globemotors.models.User;
 
 import java.util.List;
 
@@ -21,6 +22,6 @@ public interface ApiService {
     Call<LoginResponse> signIn(@Body LoginRequest loginRequest);
 
     @POST("/api/users/auth/signup")
-    Call<Void> signup(@Body User user);
+    Call<Void> signUp(@Body User user);
 
 }

@@ -25,6 +25,6 @@
 
     <activity
         android:id="@+id/nav_userauth"
-        android:name="com.example.globemotors.Signin"
-        />
+        android:name="com.example.globemotors.Signin" />
+
 </navigation>
