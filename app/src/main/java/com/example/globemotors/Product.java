@@ -2,7 +2,9 @@ package com.example.globemotors;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
 
     private int id;
     private String name;
@@ -170,13 +172,7 @@ public class Product {
         this.useStatus = useStatus;
     }
 
-    public static class Brand {
-        private int id;
-        private String name;
-
-    }
-
-    public static class Category {
+    public static class Brand  implements Serializable {
         private int id;
         private String name;
 
@@ -197,28 +193,119 @@ public class Product {
         }
     }
 
-    public static class Subcategory {
+    public static class Category  implements Serializable {
+        private int id;
+        private String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+    public static class Subcategory implements Serializable {
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getCategoryId() {
+            return categoryId;
+        }
+
+        public void setCategoryId(int categoryId) {
+            this.categoryId = categoryId;
+        }
+
         private int id;
         private String name;
         private int categoryId;
 
     }
 
-    public static class Origin {
+    public static class Origin implements Serializable {
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
         private int id;
         private String name;
 
     }
 
-    public static class Vehicle {
+    public static class Vehicle implements Serializable {
         private int id;
         private String name;
 
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
-    public static class UseStatus {
+    public static class UseStatus implements Serializable {
         private int id;
         private String name;
 
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }
