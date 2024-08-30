@@ -59,12 +59,15 @@ public class Product_details extends AppCompatActivity {
         productCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), SlideshowFragment.class);
+                Intent intent = new Intent(getBaseContext(), Cart.class);
                 intent.putExtra("cartProductId", product.getId());
                 intent.putExtra("cartProductName", product.getName());
+                intent.putExtra("cartProductPrice", product.getPrice());
+                intent.putExtra("cartProductStock", product.getStock());
                 startActivity(intent);
             }
         });
+
 
         // Load image using a library like Glide or Picasso
         // Example using Glide:

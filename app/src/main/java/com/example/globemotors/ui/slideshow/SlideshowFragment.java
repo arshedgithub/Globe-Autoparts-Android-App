@@ -16,6 +16,7 @@ public class SlideshowFragment extends Fragment {
 
     private FragmentSlideshowBinding binding;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         SlideshowViewModel slideshowViewModel =
@@ -24,8 +25,22 @@ public class SlideshowFragment extends Fragment {
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        // Retrieve data from arguments
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            String productId = bundle.getString("cartProductId");
+            String productName = bundle.getString("cartProductName");
+            double productPrice = bundle.getDouble("cartProductPrice");
+            int productStock = bundle.getInt("cartProductStock");
+
+            // Now you can use these values to display or process in your Fragment
+            final TextView textProduct = binding.textProduct;
+            final TextView textPrice = binding.textPrice;
+
+            textProduct.setText(productName);
+            textProduct.setText(String.format("LKR %.2f", productPrice));
+        }
+
         return root;
     }
 
