@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OrderSuccess">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Order Placed Success !"
+        android:textAlignment="center"
+        android:textSize="35sp"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        android:layout_marginTop="100dp" />
+
+    <Button
+        android:id="@+id/retunHomeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40sp"
+        android:textAlignment="center"
+        android:text="Go to Home"
+        android:paddingHorizontal="50dp"
+        android:layout_marginHorizontal="130dp" />
+
+</LinearLayout>
