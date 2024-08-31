@@ -11,21 +11,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Order Placed Success !"
+        android:text="Order Placed Successfully !"
         android:textAlignment="center"
-        android:textSize="35sp"
+        android:textSize="30sp"
+        android:padding="15sp"
         android:textColor="@color/teal_700"
-        android:textStyle="bold"
         android:layout_marginTop="100dp" />
 
     <Button
         android:id="@+id/retunHomeBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
+        android:layout_marginTop="80sp"
         android:textAlignment="center"
         android:text="Go to Home"
-        android:paddingHorizontal="50dp"
-        android:layout_marginHorizontal="130dp" />
+        android:paddingHorizontal="20dp"
+        android:layout_marginHorizontal="100dp" />
 
 </LinearLayout>

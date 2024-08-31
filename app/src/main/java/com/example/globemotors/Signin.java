@@ -1,6 +1,8 @@
 package com.example.globemotors;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,17 +29,22 @@ public class Signin extends AppCompatActivity {
 
     private ApiService apiService;
 
+    // SharedPreferences to store JWT token
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
-
 
         // Initialize views
         usernameEditText = findViewById(R.id.input_username);
         passwordEditText = findViewById(R.id.input_password);
         signinButton = findViewById(R.id.signin_btn);
         signupButton = findViewById(R.id.signup_btn);
+
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
 
         // Initialize Retrofit and ApiService
         RetrofitClient retrofitClient = new RetrofitClient();
@@ -78,7 +85,15 @@ public class Signin extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String accessToken = response.body().getAccessToken();
+
+                    // Save the JWT token to SharedPreferences
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("accessToken", accessToken);
+                    editor.apply();
+
                     Toast.makeText(Signin.this, "Login successful!", Toast.LENGTH_SHORT).show();
+
+                    // Navigate to HomeFragment
                     Intent intent = new Intent(getBaseContext(), HomeFragment.class);
                     startActivity(intent);
                 } else {

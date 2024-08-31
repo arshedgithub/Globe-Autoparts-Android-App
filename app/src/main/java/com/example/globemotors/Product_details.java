@@ -1,6 +1,8 @@
 package com.example.globemotors;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,9 @@ public class Product_details extends AppCompatActivity {
     private TextView productName, productCategory, productPrice, productDescription, productBrand, productSubcategory, productOrigin, productVehicle, productUseStatus;
     private ImageView productImage;
     private Button productCartBtn;
+
+    // SharedPreferences to store JWT token
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +43,22 @@ public class Product_details extends AppCompatActivity {
         productImage = findViewById(R.id.product_image);
         productCartBtn = findViewById(R.id.product_cart_button);
 
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+
         // Retrieve product data from Intent
         Product product = (Product) getIntent().getSerializableExtra("PRODUCT_DETAILS");
         if (product != null) {
             populateProductDetails(product);
         }
+
+        // Set up the click listener for the "Add to Cart" button
+        productCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleAddToCart(product);
+            }
+        });
     }
 
     private void populateProductDetails(Product product) {
@@ -56,21 +72,27 @@ public class Product_details extends AppCompatActivity {
         productVehicle.setText("Vehicle: " + product.getVehicle().getName());
         productUseStatus.setText(product.getUseStatus().getName());
 
-        productCartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), Cart.class);
-                intent.putExtra("cartProductId", product.getId());
-                intent.putExtra("cartProductName", product.getName());
-                intent.putExtra("cartProductPrice", product.getPrice());
-                intent.putExtra("cartProductStock", product.getStock());
-                startActivity(intent);
-            }
-        });
-
-
         // Load image using a library like Glide or Picasso
         // Example using Glide:
         // Glide.with(this).load(product.getPhoto()).into(productImage);
+    }
+
+    private void handleAddToCart(Product product) {
+        // Check if the user is signed in by checking for the JWT token in SharedPreferences
+        String accessToken = sharedPreferences.getString("accessToken", null);
+
+        if (accessToken != null) {
+            // User is signed in, proceed to Cart activity
+            Intent intent = new Intent(getBaseContext(), Cart.class);
+            intent.putExtra("cartProductId", product.getId());
+            intent.putExtra("cartProductName", product.getName());
+            intent.putExtra("cartProductPrice", product.getPrice());
+            intent.putExtra("cartProductStock", product.getStock());
+            startActivity(intent);
+        } else {
+            // User is not signed in, redirect to Signin activity
+            Intent intent = new Intent(getBaseContext(), Signin.class);
+            startActivity(intent);
+        }
     }
 }

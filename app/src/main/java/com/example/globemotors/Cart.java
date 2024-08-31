@@ -1,6 +1,8 @@
 package com.example.globemotors;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,7 +16,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.globemotors.models.OrderRequest;
-import com.example.globemotors.models.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,12 +30,16 @@ public class Cart extends AppCompatActivity {
     private int userId = 1;
     private int productId;
 
-    String authToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFyc2hlZCIsImlzQWRtaW4iOmZhbHNlLCJ1c2VyIjoxLCJpYXQiOjE3MjQ5OTAwODEsImV4cCI6MTcyNTAwMDg4MX0.YSgzb7Pp66vyWlA0PnBHuygq2Tc9K37_HRKDYPconOvE79vKAjmEV9EGp20gv81IMKGYbf8v70dd4vq0ftTvxw";
+    // SharedPreferences to retrieve JWT token
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
 
         // Initialize views
         textProduct = findViewById(R.id.text_product);
@@ -99,6 +104,10 @@ public class Cart extends AppCompatActivity {
         OrderRequest orderRequest = new OrderRequest(quantity, total, userId, productId);
 
         ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+
+        // Retrieve JWT token from SharedPreferences
+        String authToken = sharedPreferences.getString("accessToken", "");
+
         Call<Void> call = apiService.submitOrder(authToken, orderRequest);
 
         call.enqueue(new Callback<Void>() {
