@@ -25,10 +25,14 @@
 
     <activity
         android:id="@+id/nav_cart"
+        android:name="com.example.globemotors.Cart" />
+
+    <activity
+        android:id="@+id/nav_user_signin"
         android:name="com.example.globemotors.Signin" />
 
     <activity
-        android:id="@+id/nav_userauth"
-        android:name="com.example.globemotors.Signin" />
+        android:id="@+id/nav_user_signout"
+        android:name="com.example.globemotors.Signout" />
 
 </navigation>

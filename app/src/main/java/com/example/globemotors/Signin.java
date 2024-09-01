@@ -94,7 +94,7 @@ public class Signin extends AppCompatActivity {
                     Toast.makeText(Signin.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
                     // Navigate to HomeFragment
-                    Intent intent = new Intent(getBaseContext(), HomeFragment.class);
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(Signin.this, "Invalid username or password.", Toast.LENGTH_SHORT).show();
