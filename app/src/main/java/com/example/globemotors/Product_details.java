@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,7 +53,6 @@ public class Product_details extends AppCompatActivity {
             populateProductDetails(product);
         }
 
-        // Set up the click listener for the "Add to Cart" button
         productCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +72,14 @@ public class Product_details extends AppCompatActivity {
         productVehicle.setText("Vehicle: " + product.getVehicle().getName());
         productUseStatus.setText(product.getUseStatus().getName());
 
+        if (product.getStock() <= 0) {
+            productCartBtn.setEnabled(false);
+            productCartBtn.setText("Out of Stock");
+            productCartBtn.setBackgroundColor(getColor(R.color.red));
+        } else {
+            productCartBtn.setEnabled(true);
+        }
+
         // Load image using a library like Glide or Picasso
         // Example using Glide:
         // Glide.with(this).load(product.getPhoto()).into(productImage);
@@ -82,7 +90,6 @@ public class Product_details extends AppCompatActivity {
         String accessToken = sharedPreferences.getString("accessToken", null);
 
         if (accessToken != null) {
-            // User is signed in, proceed to Cart activity
             Intent intent = new Intent(getBaseContext(), Cart.class);
             intent.putExtra("cartProductId", product.getId());
             intent.putExtra("cartProductName", product.getName());
@@ -90,7 +97,7 @@ public class Product_details extends AppCompatActivity {
             intent.putExtra("cartProductStock", product.getStock());
             startActivity(intent);
         } else {
-            // User is not signed in, redirect to Signin activity
+            Toast.makeText(this, "igned into order Products", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getBaseContext(), Signin.class);
             startActivity(intent);
         }
