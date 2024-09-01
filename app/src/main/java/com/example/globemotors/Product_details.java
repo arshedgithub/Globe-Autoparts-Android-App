@@ -97,7 +97,7 @@ public class Product_details extends AppCompatActivity {
             intent.putExtra("cartProductStock", product.getStock());
             startActivity(intent);
         } else {
-            Toast.makeText(this, "igned into order Products", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Sign in for order Products", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getBaseContext(), Signin.class);
             startActivity(intent);
         }
