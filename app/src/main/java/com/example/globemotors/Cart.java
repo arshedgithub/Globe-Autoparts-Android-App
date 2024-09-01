@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.globemotors.models.OrderRequest;
-import com.example.globemotors.reusable.InputFilterMinMax;
+import com.example.globemotors.utils.InputFilterMinMax;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +28,7 @@ public class Cart extends AppCompatActivity {
     private EditText editQuantity;
     private Button orderBtn;
     private double productPrice;
-    private int userId = 1;
+    private int userId;
     private int productId;
     private int productStock;
 
@@ -41,6 +40,7 @@ public class Cart extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+            userId = sharedPreferences.getInt("userId", -1); // Default value -1 if userId is not found
 
         textProduct = findViewById(R.id.text_product);
         textPrice = findViewById(R.id.text_price);
@@ -132,5 +132,11 @@ public class Cart extends AppCompatActivity {
                 Toast.makeText(Cart.this, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

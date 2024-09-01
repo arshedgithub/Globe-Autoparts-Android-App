@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.globemotors.models.LoginRequest;
 import com.example.globemotors.models.LoginResponse;
 import com.example.globemotors.ui.home.HomeFragment;
+import com.example.globemotors.utils.JWTUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -86,20 +87,25 @@ public class Signin extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     String accessToken = response.body().getAccessToken();
 
-                    // Save the JWT token to SharedPreferences
+                    // Decode the user ID from the JWT token
+                    int userId = JWTUtils.getUserIdFromToken(accessToken);
+                    Log.d("after successful", "onResponse: "+ userId);
+
+                    // Save the JWT token and userId to SharedPreferences
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("accessToken", accessToken);
+                    editor.putInt("userId", userId);
                     editor.apply();
 
                     Toast.makeText(Signin.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
-                    // Navigate to HomeFragment
                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(Signin.this, "Invalid username or password.", Toast.LENGTH_SHORT).show();
                 }
             }
+
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {

@@ -1,4 +1,4 @@
-package com.example.globemotors.reusable;
+package com.example.globemotors.utils;
 
 import android.text.InputFilter;
 import android.text.Spanned;
