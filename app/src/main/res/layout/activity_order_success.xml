@@ -13,19 +13,40 @@
         android:layout_height="wrap_content"
         android:text="Order Placed Successfully !"
         android:textAlignment="center"
-        android:textSize="30sp"
-        android:padding="15sp"
+        android:textSize="25sp"
+        android:padding="10sp"
         android:textColor="@color/teal_700"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="110dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your order is pending. Seller will contact you soon!"
+        android:textAlignment="center"
+        android:textSize="15sp"
+        android:padding="25sp"
+        android:layout_marginTop="60dp" />
 
     <Button
         android:id="@+id/retunHomeBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80sp"
         android:textAlignment="center"
         android:text="Go to Home"
+        android:background="@drawable/rounded_button"
         android:paddingHorizontal="20dp"
-        android:layout_marginHorizontal="100dp" />
+        android:layout_marginHorizontal="50dp" />
+
+    <Button
+        android:id="@+id/contactBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Contact Seller"
+        android:background="@drawable/rounded_button"
+        android:paddingHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="50dp" />
 
 </LinearLayout>
